@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -40,6 +41,10 @@ public class ProductService {
         product.setPrice(subtract.multiply(product.getPrice()).divide(new BigDecimal("100")));
         Product save = productRepository.save(product);
         return save;
+    }
+
+    public List<Product> findByName(String name){
+        return productRepository.findByName(name);
     }
 
 }
