@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: apigateway
+  cloud:
+    gateway:
+      routes:
+        - id: product
+          uri: lb://PRODUCT
+          predicates:
+            - Path=/api/v1/product/**
+        - id: discount
+          uri: lb://DISCOUNT
+          predicates:
+            - Path=/api/v1/discount/**
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 9095

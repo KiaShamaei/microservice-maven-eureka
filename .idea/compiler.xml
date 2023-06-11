@@ -7,8 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="api-gateway" />
         <module name="discount" />
         <module name="client5" />
+        <module name="notification" />
         <module name="product" />
         <module name="eureka-server" />
       </profile>
