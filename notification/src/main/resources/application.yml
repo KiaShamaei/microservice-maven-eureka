@@ -7,7 +7,25 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/productm
+#    username: root
+#    password: KM@852147154
+  #### ---work config---
   datasource:
-    url: jdbc:mysql://localhost:3306/productm
+    url: jdbc:mysql://localhost:3306/notificationm
     username: root
-    password: KM@852147154
+    password: 123456
+##rabbitMq config
+rabbitmq:
+  queue:
+    name: digixo
+  exchange:
+    name: digixo_exchange
+  routing:
+    key: digixo_routing_key
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
+

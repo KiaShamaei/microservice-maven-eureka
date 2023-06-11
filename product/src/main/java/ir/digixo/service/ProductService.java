@@ -8,6 +8,7 @@ import ir.digixo.entity.Product;
 
 import ir.digixo.notification.NoticationRequest;
 import ir.digixo.notification.NotificationClient;
+import ir.digixo.notification.rabbit.NotificationRabitProducer;
 import ir.digixo.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class ProductService {
     private RestTemplate restTemplate;
 
     @Autowired
+    private NotificationRabitProducer rabitProducer;
+
+    @Autowired
     private DiscountClient discountClient;
 
     public Product createProduct(ProductRequest productRequest) {
@@ -45,6 +49,7 @@ public class ProductService {
         BigDecimal subtract = new BigDecimal("100").subtract(coupon.getDiscount());
         product.setPrice(subtract.multiply(product.getPrice()).divide(new BigDecimal("100")));
         Product save = productRepository.save(product);
+        rabitProducer.sendMessage("this a test");
         this.sendSms(save);
         return save;
     }

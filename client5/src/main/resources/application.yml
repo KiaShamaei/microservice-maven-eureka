@@ -1,0 +1,12 @@
+##rabbitMq config
+rabbitmq:
+  queue:
+    name: digixo
+  exchange:
+    name: digixo_exchange
+  routing:
+    key: digixo_routing_key
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest

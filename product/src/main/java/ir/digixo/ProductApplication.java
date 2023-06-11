@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableFeignClients(
-        basePackages = {"ir.digixo.discount"}
+        basePackages = {"ir.digixo.discount","ir.digixo.notification"}
 )
 @EnableEurekaClient
 public class ProductApplication

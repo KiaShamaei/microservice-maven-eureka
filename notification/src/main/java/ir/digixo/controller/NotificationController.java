@@ -3,10 +3,9 @@ package ir.digixo.controller;
 import ir.digixo.entity.NotificationEntity;
 import ir.digixo.notification.NoticationRequest;
 import ir.digixo.repository.NotificationRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import ir.digixo.service.RabbitMQProducer;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -14,9 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class NotificationController
 {
     private final NotificationRepository repo;
+    private final RabbitMQProducer producer;
 
-    public NotificationController(NotificationRepository repo) {
+    public NotificationController(NotificationRepository repo,
+                                  RabbitMQProducer producer) {
         this.repo = repo;
+        this.producer = producer;
     }
     @PostMapping("add")
     public String addNotification(@RequestBody NoticationRequest model){
@@ -27,6 +29,12 @@ public class NotificationController
                 senderAt(model.getSenderAt()).build();
         repo.save(entity);
         return "done";
+    }
+    // http://localhost:8080/api/v1/publish?message=hello
+    @GetMapping("/publish")
+    public ResponseEntity<String> sendMessage(@RequestParam("message") String message){
+        producer.sendMessage(message);
+        return ResponseEntity.ok("Message sent to RabbitMQ ...");
     }
 
 }
