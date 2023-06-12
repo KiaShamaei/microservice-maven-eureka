@@ -44,6 +44,6 @@ public class RabbitMQNotificationConfig {
     // ConnectionFactory
     // RabbitTemplate
     // RabbitAdmin
-    //command run in docker : docker run --rm -it -p 15672:15672 -p 5672:5672 rabbitmq:3-management -e RABBITMQ_DEFAULT_USER=guest -e RABBITMQ_DEFAULT_PASS=guest
+    //command run in docker : docker run --rm -it -p 15672:15672 -p 5672:5672 -e RABBITMQ_DEFAULT_USER=guest -e RABBITMQ_DEFAULT_PASS=guest  rabbitmq:3-management
 }
 

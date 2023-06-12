@@ -40,17 +40,20 @@ public class ProductService {
         Product product = new Product(productRequest.getName(), productRequest.getDescription(), productRequest.getPrice());
 
 
-        //without load Balance
+        //without load Balance restTemplate
         //Coupon coupon = restTemplate.getForObject("http://localhost:8085/api/v1/coupons/{code}", Coupon.class,productRequest.getCode())
-        //with load Balance
+
+        //with load Balance Balance restTemplate
         //Coupon coupon = restTemplate.getForObject("http://DISCOUNT/api/v1/coupons/{code}", Coupon.class,productRequest.getCode());
+
         //with FeignClient
         Coupon coupon = discountClient.getDiscount(productRequest.getCode());
         BigDecimal subtract = new BigDecimal("100").subtract(coupon.getDiscount());
         product.setPrice(subtract.multiply(product.getPrice()).divide(new BigDecimal("100")));
         Product save = productRepository.save(product);
-        rabitProducer.sendMessage("this a test");
-        this.sendSms(save);
+        //notify with sync which is blocking
+//        this.sendNotificationBlock(save);
+        this.sendNotificationNounBlock(save);
         return save;
     }
 
@@ -58,13 +61,20 @@ public class ProductService {
         return productRepository.findByName(name);
     }
 
-    public void sendSms(Product save){
+    public void sendNotificationBlock(Product save){
         var notifi = new NoticationRequest();
         notifi.setMessage("add request : " + save.getId());
         notifi.setSender("product");
         notifi.setSenderAt(LocalDateTime.now());
-
         notificationClient.addNotification(notifi);
+
+    }
+    public void sendNotificationNounBlock(Product save){
+        var notifi = new NoticationRequest();
+        notifi.setMessage("add request : " + save.getId());
+        notifi.setSender("product");
+        notifi.setSenderAt(LocalDateTime.now());
+        rabitProducer.sendMessage(notifi);
 
     }
 

@@ -1,5 +1,6 @@
 package ir.digixo.notification.rabbit;
 
+import ir.digixo.notification.NoticationRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,8 +23,12 @@ public class NotificationRabitProducer {
     }
 
 
-    public void sendMessage(String message){
-        log.info("Message sent -> %s", message);
+//    public void sendMessage(String message){
+//        log.info("Message sent -> {}", message);
+//        rabbitTemplate.convertAndSend(exchange, routingKey, message);
+//    }
+    public void sendMessage(NoticationRequest message){
+        log.info("Message sent client five -> {}", message.toString());
         rabbitTemplate.convertAndSend(exchange, routingKey, message);
     }
 }

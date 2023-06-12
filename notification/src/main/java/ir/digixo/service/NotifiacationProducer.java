@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Log4j2
-public class RabbitMQProducer {
+public class NotifiacationProducer {
+    //this class for call directly a notification use only
     @Value("${rabbitmq.exchange.name}")
     private String exchange;
 
@@ -17,13 +18,13 @@ public class RabbitMQProducer {
 
     private final RabbitTemplate rabbitTemplate;
 
-    public RabbitMQProducer(RabbitTemplate rabbitTemplate) {
+    public NotifiacationProducer(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
 
 
     public void sendMessage(String message){
-        log.info("Message sent -> %s", message);
+        log.info("Message sent -> {}", message);
         rabbitTemplate.convertAndSend(exchange, routingKey, message);
     }
 }
