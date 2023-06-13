@@ -18,11 +18,11 @@ public class NotificationConsumer {
 
 
     //this for test for the config of rabbitMQ
-    @RabbitListener(queues = {"${rabbitmq.queue.name}"})
-    public void consume(String message) {
-
-        log.info("Received message notification ->{}", message);
-    }
+//    @RabbitListener(queues = {"${rabbitmq.queue.name}"})
+//    public void consume(String message) {
+//
+//        log.info("Received message notification ->{}", message);
+//    }
 
     @RabbitListener(queues = {"${rabbitmq.queue.name}"})
     public void consume(NoticationRequest message) throws InterruptedException {
