@@ -10,7 +10,6 @@ public class AppGateway
 {
     public static void main( String[] args )
     {
-
         SpringApplication.run(AppGateway.class);
     }
 }

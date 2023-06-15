@@ -7,7 +7,7 @@ spring:
         - id: product
           uri: lb://PRODUCT
           predicates:
-            - Path=/api/v1/product/**
+            - Path=/api/v1/products/**
         - id: discount
           uri: lb://DISCOUNT
           predicates:
